@@ -1,0 +1,51 @@
+\\MPT - 360 v2 (pino,VR completo,acess,mapa...)
+versão - 2.0.1
+data - 10/09/2018
+
+ATUALIZAÇÃO:
+	- Pensei em fazer o modo acessibilidade por webspeech (aliviando o peso sem arquivos de audio), porém ainda em desenvolvimento e pouco brownser suportanto não posso fazer ainda.
+
+INFO:
+	- Diferente da primeira versão, TODO o conteudo das esferas (dos pinos), esta dentro do proprio arquivo index ( div #id mptide_container ).
+		- MAS para melhor configuração/sigilo do script E criação pela IDE, os pinos e todo conteudo do usuario está dentro do JS.
+	- O javascript é composto assim : Todas as variaveis declaradas, carrega a funcao que coloca TODAS as configurações e pinos do USUARIO no index, terminar de declarar e referenciar as variaveis, declara todas as funcoes (barra de progresso, tooltip, modal abrir img, acessibilidade, modo vr, verificacao se é mobile ou desk e funcao que carrega as opcoes do usuario sobre mapa e modo vr e acess(ativar e desativar se quer essas 3 options) ). TERMINA O CONTEUDO FIXO. a partir dai comeca o conteudo do usuario. Começa a criar as esferas logo em seguida os seus pinos, add os pinos e setas dentro da esfera, código que inicia a esfera com todas as suas options e por fim, o viewer add as esferas dentro.
+	- A parte de add pinos e setas dentro da esfera fica após declarar todos os pinos e esferas, pois se for a cima ele da erro de undefined
+	- Para descobrir a posição de um pino, CTRL + click na tela e ver no console a posição.
+	- O plugin panolens, está TOTALMENTE MODIFICADO, criamos uma funcao de por titulo passar por cima dos pinos e vibrar para o modo acessibilidade, portanto tanto o panolens quanto nosso js, estão interligados, função de titulo no panolens é para as setas, a no js é para os pinos.
+	- O modo acessibilidade, está feito assim: ativando, aparece modal com um audio dizendo como funciona, entrou na esfera começa o audio explicando o local, passa a seta ou ponto do olho (VR) por cima da seta, vibra.
+	- Possui setas de locomoção, Pino com conteudo, VR completo, mapa.
+	- Caso uma imagem para um pino (ou algo do tipo) seja um retangulo, será necessário transformar em um quadrado (a imagem pode estar dentro de um quadrado transparente), pois o codigo vai distorcer CASO haja mais de 1 dessa imagem pelas esferas(independente se for na mesma ou em outra esfera).
+	- Esferas mt grandes (maiores de 2 megas) + varias esferas E conteudo/pino, pode nao carregar algumas esferas, para isso diminuia o tamanho mas mantendo o maximo de qualidade para carregar tudo e continuar com boa qualidade.
+	- Pinos muito grandes + vários pinos, pode nao carregar alguns pinos naquela esfera.
+	- link_via_click - função para clicar em uma parte do mapa e ir para outra esfera (recebe a esfera de origem e a esfera alvo), possui um script que faz a mudança da esfera do panolens.js mas resumido sem outros detalhes, apenas para ir na outra esfera.
+
+DESAFIOS:
+	- nenhum... por enquanto
+
+NOMECLATURA:
+	mptide_oq¹_ond²_faz³ (no css, js, php ou index, mantem uma ordem)
+	¹ - function ou etc..
+	² - js,css,php...
+	³ - o que esse nome faz (se for funcao fala oq faz, se for uma variavel é o nome e onde ele esta..)
+
+Bibliografia / ajuda:
+	Jquery
+		https://jquery.com
+	Jquery vibrate (para a acessibilidade)
+		https://illyism.github.io/jquery.vibrate.js/
+	Criar os textos (para a acessibilidade)
+		https://www.soarmp3.com
+	Converter para o formato OGG (dispositivos ios/firefox)
+		https://online-audio-converter.com/pt/
+	Minificar css
+		https://cssminifier.com
+	Minificar JS
+		https://javascript-minifier.com
+	Editar tamanho de imagem online (caso necessario)
+		http://www.online-image-editor.com/?language=portuguese
+	Pegar coordenadas de imagem map
+		http://imagemap-generator.dariodomi.de/
+	Diminuir tamanho da imagem sem perder qualidade
+		http://www.imagesmaller.com/
+		esse perde a qualidade mas redimensiona
+		https://www.easy-resize.com/pt/

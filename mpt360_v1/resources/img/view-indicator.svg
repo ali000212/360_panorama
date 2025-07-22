@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="30" width="30" style=""><rect id="backgroundrect" width="100%" height="100%" x="0" y="0" fill="none" stroke="none"/>
+	<style type="text/css">.st0{stroke-width:2;stroke-miterlimit:10;fill:none;}.st1{stroke-width:6;stroke-miterlimit:10;}
+	</style>
+	
+<g class="currentLayer" style=""><title>Layer 1</title><g id="svg_1" class="selected" fill="#ffffff" fill-opacity="1" stroke="#ffffff" stroke-width="1" filter="" opacity="1" stroke-dasharray="none" stroke-opacity="1">
+		<path class="st0" d="M25.5,15.5 A12.5,12.5 0 0 0 0.5,15.5 A12.5,12.5 0 0 0 25.5,15.5 " id="svg_2" fill="#ffffff" fill-opacity="1" stroke="#ffffff" stroke-opacity="1" stroke-width="1" filter="" opacity="1" stroke-dasharray="none"/>
+		<path class="st2" d="M 13 0 L 10 2 L 16 2 Z" id="svg_3" fill="#ffffff" fill-opacity="1" stroke="#ffffff" stroke-opacity="1" stroke-width="1" filter="" opacity="1" stroke-dasharray="none"/>
+		<path class="st2" d="M15,15.5 A2,2 0 0 0 11,15.5 A2,2 0 0 0 15,15.5 " id="svg_4" fill="#ffffff" fill-opacity="1" stroke="#ffffff" stroke-opacity="1" stroke-width="1" filter="" opacity="1" stroke-dasharray="none"/>
+		<path class="st1" id="indicator" transform="matrix(1,0,0,1,13,15.5) " fill="#ffffff" fill-opacity="1" stroke="#ffffff" stroke-opacity="1" stroke-width="1" filter="" opacity="1" stroke-dasharray="none"/>
+	</g></g><defs><filter xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" id="f125" inkscape:label="Wax print" inkscape:menu="Textures" inkscape:menu-tooltip="Wax print on tissue texture" height="1.399999976158142" y="-0.20000000298023224" width="1.399999976158142" x="-0.20000000298023224" color-interpolation-filters="sRGB">
+            <feGaussianBlur result="result1" in="SourceGraphic" stdDeviation="2"/>
+            <feTurbulence result="result0" numOctaves="5" baseFrequency=".05" type="fractalNoise"/>
+            <feDisplacementMap result="result2" scale="10" yChannelSelector="G" xChannelSelector="R" in="result1" in2="result0"/>
+            <feColorMatrix values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 10 0 " result="result3"/>
+            <feBlend mode="multiply" in="result2" result="result5" in2="result3"/>
+            <feGaussianBlur result="result4" in="result3" stdDeviation="5"/>
+            <feComposite k1=".5" k3="1.5" k2=".15" in="result4" in2="result5" operator="arithmetic" result="result6"/>
+            <feComposite operator="in" in="result6" in2="result4"/>
+        </filter></defs></svg>

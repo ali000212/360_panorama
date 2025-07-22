@@ -1,0 +1,640 @@
+/*import font*/
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+html, body {
+	font-family: 'Montserrat', sans-serif;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background-color: #000;
+}
+.mptide_watermark {
+	position: fixed;
+	font-size: 10px;
+	right: 0;
+	margin-right: 10px;
+	user-select: none;
+	pointer-events: auto;
+	cursor: pointer;
+	color: black;
+	z-index: 99;
+}
+.mptide_watermark_img{
+	width: 45px;
+	height: auto;
+	margin-bottom: -25px;
+}
+.mptide_watermark:hover , .mptide_watermark_img:hover, .mptide_watermark:active , .mptide_watermark_img:active{
+	filter:drop-shadow(rgb(255,255,255) 0px 0px 5px);
+	opacity: 1;
+}
+/* letras e tags com a font */
+.mptide_text {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 65%;
+	padding: 5px 5px;
+}
+.mptide_title{
+	font-family: 'Montserrat', sans-serif;
+	font-size: 90%;
+	padding: 5px 5px;
+}
+a,p,h1,h2,h3,h4,h5{
+	font-family: 'Montserrat', sans-serif;
+}
+a:link, a:visited{
+	text-decoration: none;
+	font-family: 'Montserrat', sans-serif;
+}
+*:focus {
+	outline: none;
+}
+/*barra de progresso*/
+.mptide_cover{
+	height: inherit;
+	width: 100%;
+	position: absolute;
+	background: rgba(0,0,0, 0.5);
+	z-index: 9;
+}
+.mptide_txt_load{
+	color: rgba(255,255,255,1);
+    position: relative;
+    text-align: center;
+    width: min-content;
+    height: auto;
+    top: 6em;
+    padding: 0;
+    margin: 0 auto;
+}
+.mptide_txt_load > img {
+    width: 140px;
+}
+.mptide_img_load{
+	width: 150px;
+}
+#mptide_progress {
+	width: 0;
+	height: 10px;
+	position: fixed;
+	top: 0;
+	background: rgba(255,255,255, 1.0);
+	-webkit-transition: opacity 0.5s ease;
+	transition: opacity 0.5s ease;
+	z-index: 10;
+}
+#mptide_progress.mptide_progress_finish {
+	opacity: 0;
+}
+/* fim barra de progresso*/
+/*span de aviso */
+.mptide_tag_aviso{
+	display: none;
+	color: #4B4B4D;
+	font-size: 17px;
+	font-family: 'Montserrat', sans-serif;
+	position: absolute;
+	text-align: center;
+	line-height: 40px;
+	left: 50%;
+	margin-left: -45%;
+	bottom: 40px;
+	background-color: rgba(255,255,255, 0.7);
+	border-radius: 20px;
+	width: 90%;
+	height: 40px;
+}
+/* fim span de aviso */
+/* btn para entrar no modo VR */
+.mptide_btn_vr{
+	background-image: url("../img/vr.png");
+	right: 45px;
+}
+.mptide_btn_acess{
+	background-image: url("../img/acess_on.png");
+	right: 95px;
+}
+.mptide_btn{
+	background-color: transparent;
+	border: none;
+	bottom: 2px;
+	cursor: pointer;
+	float: right;
+	width: 44px;
+	height: 44px;
+	background-size: 80%;
+	background-repeat: no-repeat;
+	background-position: center center;
+	user-select: none;
+	position: absolute;
+	pointer-events: auto;
+}
+.mptide_btn:hover, .mptide_btn:active{
+	filter:drop-shadow(rgb(255,255,255) 0px 0px 5px);
+}
+/* fim btn para entrar no modo VR */
+button:disabled, button[disabled]{
+	border: none;
+	background-color: transparent;
+	opacity: 0.2
+}
+/*container de info para os hotspot*/
+/* modo normal, desk */
+.mptide_boxpin {
+	background: #fff;
+	border-radius: 25px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+	display: none;
+}
+.mptide_boxpin_cont{
+	width: 100%;
+	height: 214.5px; /* 65% da div .mptide_boxpin*/
+}
+.mptide_player{
+	width: 100%;
+	/*margin-top: 5px;*/
+}
+.mptide_aud_sph{
+	display: none;
+}
+.mptide_boxpin > .mptide_boxpin_cont > img{
+	/* width: 100%; */
+	display: block;
+	max-height: 100%;
+	margin: 0 auto;
+	min-width: 50%;
+	max-width: 100%;
+	cursor: pointer;
+}
+.mptide_boxpin_iframe{
+	width: 100%;
+	height: 100%;
+	border: none;
+}
+/*TIPOS DE CAIXA*/
+.mptide_boxpin_audio{
+	/*altura e largura padrao - tamanho tablets e desk*/
+/*	width: 330px;
+	height: 300px;*/
+	min-width: 330px; /* 24.89% || 330px */
+	min-height: 185px; /* 45% || 300px */
+	max-width: 330px; /* 24.89% || 330px */
+	max-height: 190px; /* 45% || 300px */
+	top: 40px!important;
+}
+
+.mptide_boxpin_img{
+	min-width: 330px; /* 24.89% || 330px */
+	min-height: 300px; /* 45% || 300px */
+	max-width: 330px; /* 24.89% || 330px */
+	max-height: 300px; /* 45% || 300px */
+	top:-15px!important;
+}
+
+.mptide_boxpin_frame{
+	min-width: 330px; /* 24.89% || 330px */
+	min-height: 300px; /* 45% || 300px */
+	max-width: 330px; /* 24.89% || 330px */
+	max-height: 300px; /* 45% || 300px */
+	top:-15px!important;
+}
+
+/* Modal acessibilidade */
+.mptide_modal_acess {
+	background: #fff;
+	border-radius: 25px;
+	position: absolute;
+	overflow: hidden;
+	display: none;
+	margin: auto;
+	border: none;
+	width: 50%;
+	height: 67%;
+	max-height: 230px;
+	left: 50%;
+	top: 10%;
+	margin-left: -25%; /* A metade de sua largura. */
+}
+
+.mptide_modal_acess_footer{
+	position: absolute; 
+	bottom: 0; 
+	width: 100%; 
+	height: 60px; 
+	border: none;
+}
+
+.mptide_modal_acess > p{
+	overflow: auto;
+	font-size: 13px;
+	margin: 20.3px;
+	padding: 5px;
+	height: 105px;
+}
+/* The Close Button */
+.mptide_modal_acess_close {
+	width: 100%;
+	color: #ccc;
+	float: right;
+	text-align: right;
+	font-size: 28px;
+	font-weight: bold;
+	padding: 5px 22px 0 15px;
+}
+.mptide_modal_acess_close:hover, .mptide_modal_acess_close:active, .mptide_modal_acess_close:focus {
+	color: red;
+	text-decoration: none;
+	cursor: pointer;
+}
+.mptide_modal_acess_btn_ok{
+	width: 100%;
+	height: 60px;
+	margin: 0;
+	padding: 0;
+	border: none;
+	background-color: #ccc;
+	color: #fff;
+	font-size: 100%;
+	text-align: center;
+}
+.mptide_modal_acess_btn_ok:hover, .mptide_modal_acess_btn_ok:active, .mptide_modal_acess_btn_ok:focus{
+	background-color: rgb(0, 255, 97);
+	cursor: pointer;
+}
+
+/* MODAL PARA ABRIR IMAGEM */
+/* The Modal (background) */
+.mptide_modal_o {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 9999999; /* Sit on top */
+	padding-top: 50px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (image) */
+.mptide_modal_o_content {
+	margin: 0 auto;
+	display: block;
+	max-width: 70%;
+	max-height: 100%;
+}
+
+/* Caption of Modal Image */
+#mptide_modal_o_caption {
+	margin: auto;
+	display: block;
+	width: 80%;
+	max-width: 700px;
+	text-align: center;
+	color: #ccc;
+	padding: 10px 0;
+	height: 150px;
+}
+
+/* Add Animation */
+.mptide_modal_o_content, #mptide_modal_o_caption {    
+	-webkit-animation-name: zoom;
+	-webkit-animation-duration: 0.6s;
+	animation-name: zoom;
+	animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+	from {-webkit-transform:scale(0)} 
+	to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+	from {transform:scale(0)} 
+	to {transform:scale(1)}
+}
+
+/* The Close Button */
+.mptide_modal_o_close {
+	position: absolute;
+	top: 15px;
+	right: 35px;
+	color: #f1f1f1;
+	font-size: 40px;
+	font-weight: bold;
+	transition: 0.3s;
+}
+
+.mptide_modal_o_close:hover,
+.mptide_modal_o_close:active
+.mptide_modal_o_close:focus {
+	color: #bbb;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+	.mptide_modal_o_content {
+		width: 100%;
+	}
+}
+/* FIM MODAL PARA ABRIR IMAGEM */
+
+/* mapa */
+#mptide_bp_map{
+	position: absolute;
+	bottom: 20px;
+	left: 20px;
+	width: 100px;
+	height: 100px;
+	z-index: 89;
+	user-select: none;
+	-webkit-transition: width 1s, height 1s; /* Safari */
+	transition: width 1s, height 1s;
+}
+
+#mptide_bp_map_img{
+	width: 100%;
+	height: 100%;
+	min-height: 100px;
+	background-repeat: no-repeat;
+	background-size: 100px 100px;
+}
+/* fim mapa */
+/*titulo dos pinos e setas*/
+#mptide_tooltip_span {
+	font-family:'Montserrat', sans-serif;
+	font-size: 12px;
+	display:none;
+	position:absolute;
+	overflow:hidden;
+	z-index: 999999;
+	color: #4B4B4D;
+	background-color: rgba(255,255,255, 0.9);
+	border-radius: 8px;
+	border:none;
+	padding: 8px;
+}
+
+/*MEDIA QUERY*/
+/*MQ para tablets e celulares grandes*/
+@media (min-width: 620px) and (max-width: 960px) and (orientation: portrait){
+
+	.mptide_boxpin {
+		border-radius: 20px;
+	}
+
+	/*TIPOS DE CAIXA*/
+	.mptide_boxpin_audio{
+		min-width: 230px;
+		min-height: 100px;
+		max-width: 230px;
+		max-height: 110px;
+		top: 80px!important;
+	}
+
+	.mptide_boxpin_img{
+		min-width: 230px; /* 24.89% || 330px */
+		min-height: 200px; /* 45% || 300px */
+		max-width: 230px; /* 24.89% || 330px */
+		max-height: 200px; /* 45% || 300px */
+		top: 35px!important;
+	}
+
+	.mptide_boxpin_frame{
+		min-width: 230px; /* 24.89% || 330px */
+		min-height: 200px; /* 45% || 300px */
+		max-width: 230px; /* 24.89% || 330px */
+		max-height: 200px; /* 45% || 300px */
+		top: 35px!important;
+	}
+
+	.mptide_boxpin_cont{
+		width: 100%;
+		height: 130px; /* 65% da div .mptide_boxpin*/
+	}
+/*	.div-aud{
+		width: 180px;
+		height: 50px; 25% da div .mptide_boxpin
+		margin-left: -90px;
+	}*/
+	.mptide_text {
+		font-size: 50%;
+	}
+	.mptide_title{
+		font-size: 70%;
+	}
+	.mptide_modal_acess {
+		top: 10%;
+		width: 70%;
+		margin-left: -35%;
+	}
+	.mptide_modal_acess > p{
+		font-size: 11.5px;
+		margin: 20.3px;
+		padding: 5px;
+		height: 124px;
+	}
+}
+
+@media (min-width: 620px) and (max-width: 960px) and (orientation: landscape){
+
+	.mptide_boxpin {
+		border-radius: 15px;
+	}
+
+	/*TIPOS DE CAIXA*/
+	.mptide_boxpin_audio{
+		min-width: 130px; /* 24.89% || 330px */
+		min-height: 100px; /* 45% || 300px */
+		max-width: 130px; /* 24.89% || 330px */
+		max-height: 100px; /* 45% || 300px */
+		top: 95px!important;
+	}
+
+	.mptide_boxpin_img{
+		min-width: 130px; /* 24.89% || 330px */
+		min-height: 100px; /* 45% || 300px */
+		max-width: 130px; /* 24.89% || 330px */
+		max-height: 100px; /* 45% || 300px */
+		top: 95px!important;
+	}
+
+	.mptide_boxpin_frame{
+		min-width: 130px; /* 24.89% || 330px */
+		min-height: 100px; /* 45% || 300px */
+		max-width: 130px; /* 24.89% || 330px */
+		max-height: 100px; /* 45% || 300px */
+		top: 95px!important;
+	}
+
+	.mptide_boxpin_cont{
+		width: 100%;
+		height: 65px; /* 65% da div .mptide_boxpin*/
+	}
+/*	.div-aud{
+		width: 80px;
+		height: 50px;  25% da div .mptide_boxpin
+		margin-left: -40px;
+	}*/
+	.mptide_text {
+		font-size: 7px;
+	}
+	.mptide_title{
+		font-size: 8.5px;
+	}
+	.mptide_modal_acess {
+		top: 5%;
+		width: 70%;
+		margin-left: -35%;
+	}
+	.mptide_modal_acess > p{
+		font-size: 11.5px;
+		margin: 20.3px;
+		padding: 5px;
+		height: 102px;
+	}
+}
+
+/*MQ para celulares pequenos*/
+@media (min-width: 310px) and (max-width: 619px) and (orientation: portrait){
+
+	.mptide_boxpin {
+		border-radius: 20px;
+	}
+
+	/*TIPOS DE CAIXA*/
+	.mptide_boxpin_audio{
+		min-width: 230px; /* 24.89% || 330px */
+		min-height: 150px; /* 45% || 300px */
+		max-width: 230px; /* 24.89% || 330px */
+		max-height: 160px; /* 45% || 300px */
+		top: 65px!important;
+	}
+
+	.mptide_boxpin_img{
+		min-width: 230px; /* 24.89% || 330px */
+		min-height: 200px; /* 45% || 300px */
+		max-width: 230px; /* 24.89% || 330px */
+		max-height: 200px; /* 45% || 300px */
+		top: 35px!important;
+	}
+
+	.mptide_boxpin_frame{
+		min-width: 230px; /* 24.89% || 330px */
+		min-height: 200px; /* 45% || 300px */
+		max-width: 230px; /* 24.89% || 330px */
+		max-height: 200px; /* 45% || 300px */
+		top: 35px!important;
+	}
+
+	.mptide_boxpin_cont{
+		width: 100%;
+		height: 130px; /* 65% da div .mptide_boxpin*/
+	}
+/*	.div-aud{
+		width: 180px;
+		height: 50px;  25% da div .mptide_boxpin
+		margin-left: -90px;
+	}*/
+	.mptide_text {
+		font-size: 9px;
+	}
+	.mptide_title{
+		font-size: 10px;
+	}
+	.mptide_modal_acess {
+		top: 20%;
+		width: 70%;
+		margin-left: -35%;
+	}
+	.mptide_modal_acess > p{
+		font-size: 11.5px;
+		margin: 20.3px;
+		padding: 5px;
+		height: 102px;
+	}
+}
+
+@media (min-width: 320px) and (max-width: 619px) and (orientation: landscape){
+
+	.mptide_boxpin {
+		border-radius: 15px;
+	}
+
+	/*TIPOS DE CAIXA*/
+	.mptide_boxpin_audio{
+		min-width: 130px; /* 24.89% || 330px */
+		min-height: 100px; /* 45% || 300px */
+		max-width: 130px; /* 24.89% || 330px */
+		max-height: 100px; /* 45% || 300px */
+		top: 95px!important;
+	}
+
+	.mptide_boxpin_img{
+		min-width: 130px; /* 24.89% || 330px */
+		min-height: 100px; /* 45% || 300px */
+		max-width: 130px; /* 24.89% || 330px */
+		max-height: 100px; /* 45% || 300px */
+		top: 95px!important;
+	}
+
+	.mptide_boxpin_frame{
+		min-width: 130px; /* 24.89% || 330px */
+		min-height: 100px; /* 45% || 300px */
+		max-width: 130px; /* 24.89% || 330px */
+		max-height: 100px; /* 45% || 300px */
+		top: 95px!important;
+	}
+
+	.mptide_boxpin_cont{
+		width: 100%;
+		height: 65px; /* 65% da div .mptide_boxpin*/
+	}
+/*	.div-aud{
+		width: 80px;
+		height: 50px;  25% da div .mptide_boxpin
+		margin-left: -40px;
+	}*/
+	.mptide_text {
+		font-size: 5px;
+	}
+	.mptide_title{
+		font-size: 6px;
+	}
+	.mptide_modal_acess {
+		top: 5%;
+		width: 70%;
+		margin-left: -35%;
+	}
+	.mptide_modal_acess > p{
+		font-size: 11.5px;
+		margin: 20.3px;
+		padding: 5px;
+		height: 65px;
+	}
+}
+/* FIM MEDIA QUERY */
+
+/* fim container de info para os hotspot*/
+/*scroll personalizado
+body::-webkit-scrollbar-track, .mptide_boxpin::-webkit-scrollbar-track, .modal-content > p::-webkit-scrollbar-track */
+*::-webkit-scrollbar-track{
+	background-color: #CCC;
+}
+
+*::-webkit-scrollbar{
+	width: 3px;
+	height: 8px;
+	background-color: #F5F5F5;
+}
+
+*::-webkit-scrollbar-thumb{
+	background-color: #4b4b4d;
+	border-radius: 50px;
+}

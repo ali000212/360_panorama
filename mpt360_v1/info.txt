@@ -1,0 +1,21 @@
+\\MPT - 360 v1 (pino,VR simples,mapeamento de area,mapa..)
+versão - 2.0.1
+data - 18/02/2018
+
+ATUALIZAÇÃO:
+
+INFO:
+- A pasta _conteudo contém as páginas (html ou php (se banco preciso for) ), que estarão dentro de iframes no index. Estas páginas são as informações dos pins no index (de audio, imagens, mapas, videos, QUALQUER COISA..).
+- O nome das páginas (na pasta _conteudo) é estruturado por : nome do comodo_o que é_numero
+- O javascript do index é composto assim : primeiro um pequeno script que verifica se o dispositivo em que o site foi aberto é mobile ou desk, e uma variavel receberá true ou false respectivamente (essa variavel vai ser usada logo depois, para o script que inicia a esfera para indicar se o giroscopio vai ser usado ou nao).
+Depois vem funções de cada comodo (com suas esferas e pinos (os pinos que são setas, tem o Onclick com as funções do local que ele leva)) e por fim vem o script que GERA a primeira esfera, com todos os detalhes e informações que precisa, juntamente com seus pinos e a esfera (por tanto, existe uma das funções que praticamente são cópias, pois a esfera gera a primeira e caso saia do comodo e volte por um pino você está gerando ela por uma função e nao pelo script que gerou primeiro, por exemplo: tem a função da sala com os pinos e tudo mais, e tem o script que gera ao iniciar o site, ele gera a sala tambem, da mesma forma que está a função sala).
+- LATITUDE ↑ LONGITUDE →
+- Possui Setas de locomoção, Pino com conteudo, VR simples, mapa, mapeamento de area com função de pino.
+
+DESAFIOS:
+
+NOMECLATURA:
+	index
+		psv-marker-pc-cozinha (pega esse id para criar o click na esfera e mudar de comodo), sua estrutura é:
+		psv-marker <- gerado pelo script
+		-pc-cozinha <- id do pino clicado

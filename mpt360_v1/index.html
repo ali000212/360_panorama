@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<title>My Personal Tour - 360</title>
+	<meta charset="utf-8" />
+	<!-- favicon -->
+	<link rel="apple-touch-icon" sizes="76x76" href="resources/img/favicon.png">
+	<link rel="icon" type="image/png" href="resources/img/favicon.png">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<!-- og tag share facebook -->
+	<meta property="og:locale" content="pt_BR">
+	<meta property="og:url" content="index.html">
+	<meta property="og:title" content="MPT">
+	<meta property="og:site_name" content="MPT">
+	<meta property="og:description" content="My Personal Tour - 360">
+	<meta property="og:image" content="resources/img/troia_logo.png">
+	<meta property="og:image:secure_url" content="resources/img/troia_logo.png">
+	<meta property="og:image:type" content="image/jpeg">
+	<meta property="og:image:width" content="150"> <!-- pixel -->
+	<meta property="og:image:height" content="150"> <!-- pixel -->
+	<meta property="og:type" content="website">
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+	<!-- mobile -->
+	<meta name="apple-mobile-web-app-capable" content="yes"> 
+	<meta name="mobile-web-app-capable" content="yes">
+	<!-- css
+	photo = preto, 2photo = branco -->
+	<link rel="stylesheet" href="resources/css/2photo-sphere-viewer.min.css" type="text/css">
+	<link rel="stylesheet" href="resources/css/estilompt.css" type="text/css">
+</head>
+<body>
+	<!-- div onde será gerada a esfera -->
+	<div id="photosphere"></div>
+		<!-- btn modo vr -->
+	<div id="ui">
+		<div id="vr-button"></div>
+	</div>
+	<!-- map -->
+	<div id="bp-map">
+		<img src="resources/img/map.png" id="img_map" class="dragme" alt="" usemap="#Map" />
+		<map name="Map" id="Map">
+			<area alt="Sala" title="Sala" href="#" shape="rect" coords="27,115,59,144" />
+			<area alt="Cozinha" title="Cozinha" href="#" shape="rect" coords="19,14,47,41" />
+			<area alt="Quarto" title="Quarto" href="#" shape="rect" coords="108,56,127,73" />
+			<area alt="Banheiro" title="Banheiro" href="#" shape="rect" coords="98,6,123,23" />
+		</map>
+	</div>
+		<!-- scripts templates onde será o conteudo do pin, no caso chama os iframes -->
+	<script type="text/template" id="mapeamento-1">
+		<div class="conteudo">
+			<iframe src="conteudo/sala_mapa_1.html" class="iframe" frameborder="0" height="100%" width="100%"></iframe>
+		</div>
+	<!-- fim div conteudo -->
+	</script>
+	<!-- fim script template -->
+	<script type="text/template" id="imagem-1">
+		<div class="conteudo">
+			<iframe src="conteudo/salaimg_varanda_1.html" class="iframe" frameborder="0" height="100%" width="100%"></iframe>
+		</div>
+	<!-- fim div conteudo -->
+	</script>
+	<!-- fim script template -->
+	<script type="text/template" id="audio-1">
+		<div class="conteudo">
+			<iframe src="conteudo/sala_audio_1.html" class="iframe" frameborder="0" height="100%" width="100%"></iframe>
+		</div>
+	<!-- fim div conteudo -->
+	</script>
+	<!-- fim script template -->
+	<script type="text/template" id="infor-1">
+		<div class="conteudo">
+			<iframe src="conteudo/cozinha_informacao_1.html" class="iframe" frameborder="0" height="100%" width="100%"></iframe>
+		</div>
+	<!-- fim div conteudo -->
+	</script>
+	<!-- fim script template -->
+	<script type="text/template" id="video-1">
+		<div class="conteudo">
+			<iframe src="conteudo/banheiro_video_1.html" class="iframe" frameborder="0" height="100%" width="100%"></iframe>
+		</div>
+	<!-- fim div conteudo -->
+	</script>
+	<!-- fim script template -->
+
+<!-- scripts JAVASCRIPT -->
+<script src="resources/js/jquery-3.1.1.min.js"></script>
+<script src="resources/js/three.min.js"></script>
+<script src="resources/js/D.min.js"></script>
+<script src="resources/js/uevent.min.js"></script>
+<script src="resources/js/doT.min.js"></script>
+<script src="resources/js/photo-sphere-viewer.min.js"></script>
+<script src="resources/js/CanvasRenderer.js"></script>
+<script src="resources/js/CopyShader.js"></script>
+<script src="resources/js/DeviceOrientationControls.js"></script>
+<script src="resources/js/EffectComposer.js"></script>
+<script src="resources/js/MaskPass.js"></script>
+<script src="resources/js/Projector.js"></script>
+<script src="resources/js/RenderPass.js"></script>
+<script src="resources/js/ShaderPass.js"></script>
+<!-- modo vr -->
+<script src="resources/js/webvr-polyfill.min.js"></script>
+<script src="resources/js/VRControls.js"></script>
+<script src="resources/js/VREffect.js"></script>
+<script src="resources/js/webvr-ui.min.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+	// var global imagem modo vr
+	imagemvr = '';
+	// via JAVASCRIPT, tentarei pegar se é dispositivo movel ou desk
+	if( navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i) ){
+		var giro = true;
+	}else{
+		var giro = false;
+	}
+
+	// ------------------------------------------ CLICKS ------------------------------------------
+	// imagem modo vr inicial
+	imagemvr = 'resources/img/sala.jpg';
+	// executa a funcao moodovr
+	fmodovr(imagemvr);
+
+	function sala(){
+	$(document).one("click", function() {
+	// esse id é gerado na esfera, com a junção de psv-marker (do proprio script + o id que foi clicado)
+	document.getElementById('psv-marker-pc-sala').onclick = function () {
+		// imagem modo vr
+		imagemvr = 'resources/img/sala.jpg';
+		// executa a funcao moodovr
+		fmodovr(imagemvr);
+		//seu código aqui
+		PSV.clearMarkers();
+		//limpo pinos anteriores
+		PSV.setPanorama('resources/img/sala.jpg', true)
+		//seto qual esfera carregará
+		//adiciono os pinos
+		PSV.addMarker({
+			id: 'pc-banheiro',
+			latitude: -0.1,
+			longitude: 2.43,
+			image: 'resources/img/seta-dir.png',
+			width: 40,
+			height: 40,
+			anchor: 'bottom center',
+			onClick: (banheiro()),
+			tooltip: {
+				content: 'Banheiro',
+				position: 'bottom right'
+			}
+		})
+		PSV.addMarker({
+			id: 'pc-quarto',
+			latitude: -0.1,
+			longitude: 2.64,
+			image: 'resources/img/seta-dir.png',
+			width: 40,
+			height: 40,
+			anchor: 'bottom center',
+			onClick: (quarto()),
+			tooltip: {
+				content: 'Quarto',
+				position: 'bottom right'
+			}
+		})
+		PSV.addMarker({
+			id: 'pc-cozinha', // identificacao
+			latitude: -0.2, // lat
+			longitude: 2, // e long para a localizacao
+			image: 'resources/img/seta-cima.png', //imagem do pino
+			width: 40, // largura
+			height: 40, // e altura para tamanho do pino
+			anchor: 'bottom center', // ancora para qual parte da esfera ficara
+			onClick: (cozinha()), // ao clicar nesse pino fazer o que pedir (nesse caso ir para a esfera da cozinha)
+			tooltip: {
+				content: 'Cozinha',
+				position: 'bottom right'
+			} // posicao e titulo ao passar por cima do pino
+		})
+		PSV.addMarker({
+			id: 'Pino_1',
+			latitude: 0,
+			longitude: 1.57,
+			image: 'resources/img/pinI.png',
+			width: 40,
+			height: 40,
+			anchor: 'bottom center',
+			tooltip: {
+				content: 'Localização deste Apartamento',
+				position: 'bottom right'
+			},
+			content: document.getElementById('mapeamento-1').innerHTML,
+			anchor: 'bottom center'
+		})
+		PSV.addMarker({
+			id: 'Pino_2',
+			latitude: 0,
+			longitude: 0.20,
+			image: 'resources/img/pinF.png',
+			width: 40,
+			height: 40,
+			anchor: 'bottom center',
+			tooltip: {
+				content: 'Varanda',
+				position: 'bottom right'
+			},
+			content: document.getElementById('imagem-1').innerHTML,
+			anchor: 'bottom center'
+		})
+		PSV.addMarker({
+			id: 'Pino_3',
+			latitude: 1,
+			longitude: 1.20,
+			image: 'resources/img/pinA.png',
+			width: 40,
+			height: 40,
+			anchor: 'bottom center',
+			tooltip: {
+				content: 'Teto com acabamento em __________',
+				position: 'bottom right'
+			},
+			content: document.getElementById('audio-1').innerHTML,
+			anchor: 'bottom center'
+		})
+		//fim pino
+	};
+	//fim onclick psv-marker-pc-sala
+	})
+	//fim on click document
+	};
+	//fim function sala
+
+	function cozinha(){
+	$(document).one("click", function() {
+		document.getElementById('psv-marker-pc-cozinha').onclick = function () {
+		// imagem modo vr
+		imagemvr = 'resources/img/cozinha.jpg';
+		// executa a funcao moodovr
+		fmodovr(imagemvr);
+		//seu código aqui
+		PSV.clearMarkers();
+		//limpo pinos anteriores
+		PSV.setPanorama('resources/img/cozinha.jpg', true)
+		//seto qual esfera carregará
+		//add pino
+		PSV.addMarker({
+			id: 'Pino_4',
+			latitude: -0.80,
+			longitude: -1,
+			image: 'resources/img/pinI.png',
+			width: 40,
+			height: 40,
+			anchor: 'bottom center',
+			tooltip: {
+				content: 'Cooktop embutido',
+				position: 'bottom right'
+			},
+			content: document.getElementById('infor-1').innerHTML,
+			anchor: 'bottom center'
+		})
+		PSV.addMarker({
+			id: 'pc-sala',
+			latitude: -0.4,
+			longitude: -1.2,
+			image: 'resources/img/seta-cima.png',
+			width: 40,
+			height: 40,
+			anchor: 'bottom center',
+			onClick: (sala()),
+			tooltip: {
+				content: 'Sala',
+				position: 'bottom right'
+			}
+		})
+		PSV.addMarker({
+			id: 'pc-banheiro',
+			polygon_rad: /*long, lat*/[[-2.99, 0.20]/*esquerda cima*/, [-2.99, -0.48]/*esquerda baixo*/, [-2.72, -0.50]/*direita baixo*/, [-2.72, 0.21]/*direita cima*/],
+			svgStyle: {
+			fill: 'rgba(0, 0, 200, 0.2)',
+			stroke: 'rgba(50, 0, 200, 0.8)',
+				'stroke-width': '2px'
+			},
+			onClick: (banheiro()),
+			tooltip: {
+				content: 'Banheiro',
+				position: 'right bottom'
+			}
+		})
+		PSV.addMarker({
+			id: 'pc-quarto',
+			latitude: -0.10,
+			longitude: -2.02,
+			image: 'resources/img/seta-esq.png',
+			width: 40,
+			height: 40,
+			anchor: 'bottom center',
+			onClick: (quarto()),
+			tooltip: {
+				content: 'Quarto',
+				position: 'bottom right'
+			}
+		})			
+	};
+	//fim onclick psv-marker-pc-cozinha
+	})
+	//fim on click document
+	};
+	//fim function cozinha
+
+	function quarto(){
+	$(document).one("click", function() {
+	document.getElementById('psv-marker-pc-quarto').onclick = function () {
+		// imagem modo vr
+		imagemvr = 'resources/img/quarto.png';
+		// executa a funcao moodovr
+		fmodovr(imagemvr);
+		//seu código aqui
+		PSV.clearMarkers();
+		//limpo pinos anteriores
+		PSV.setPanorama('resources/img/quarto.png', true)
+		//seto qual esfera carregará
+		//add pino
+		PSV.addMarker({
+			id: 'pc-sala',
+			latitude: 0.2,
+			longitude: -0.5,
+			image: 'resources/img/seta-cima.png',
+			width: 40,
+			height: 40,
+			anchor: 'top center',
+			onClick: (sala()),
+			tooltip: {
+				content: 'Sala',
+				position: 'top right'
+			}
+		})
+		PSV.addMarker({
+			id: 'pc-cozinha',
+			latitude: 0.0,
+			longitude: -0.5,
+			image: 'resources/img/seta-dir.png',
+			width: 40,
+			height: 40,
+			anchor: 'top center',
+			onClick: (cozinha()),
+			tooltip: {
+				content: 'Cozinha',
+				position: 'top right'
+			}
+		})
+		//fim pino
+	};
+	//fim onclick quartov
+	})
+	//fim on click document
+	};
+	//fim function quarto
+
+	function banheiro(){
+	$(document).one("click", function() {
+	var banheirov = document.getElementById('psv-marker-pc-banheiro');
+	document.getElementById('psv-marker-pc-banheiro').onclick = function () {
+		// imagem modo vr
+		imagemvr = 'resources/img/banheiro.jpg';
+		// executa a funcao moodovr
+		fmodovr(imagemvr);
+		//seu código aqui
+		PSV.clearMarkers();
+		//limpo pinos anteriores
+		PSV.setPanorama('resources/img/banheiro.jpg', true)
+		//seto qual esfera carregará
+		//add pino
+		PSV.addMarker({
+			id: 'pc-sala',
+			latitude: 0.0,
+			longitude: 3.9,
+			image: 'resources/img/seta-esq.png',
+			width: 40,
+			height: 40,
+			anchor: 'top center',
+			onClick: (sala()),
+			tooltip: {
+				content: 'Sala',
+				position: 'top right'
+			}
+		})
+		PSV.addMarker({
+			id: 'pc-cozinha',
+			latitude: 0.2,
+			longitude: 3.9,
+			image: 'resources/img/seta-cima.png',
+			width: 40,
+			height: 40,
+			anchor: 'top center',
+			onClick: (cozinha()),
+			tooltip: {
+				content: 'Cozinha',
+				position: 'top right'
+			}
+		})
+		PSV.addMarker({
+			id: 'Pino_5',
+			latitude: -0.80,
+			longitude: 1.2,
+			image: 'resources/img/pinV.png',
+			width: 40,
+			height: 40,
+			anchor: 'bottom center',
+			tooltip: {
+				content: 'Banheira com agua quente',
+				position: 'bottom right'
+			},
+			content: document.getElementById('video-1').innerHTML,
+			anchor: 'bottom center'
+		})
+		//fim pino
+	};
+	//fim onclick banheirov
+	})
+	//fim on click document
+	};
+	//fim function banheiro
+
+	// ------------------------------------------ CLICKS ------------------------------------------
+
+	// variavel psv que dentro dela fica as propriedades para tudo dentro da esfera(navbar, btns, etc..)
+	var PSV = new PhotoSphereViewer({
+		// chama a fotoesfera
+		panorama: 'resources/img/sala.jpg',
+		// local que vai conter a esfera no body
+		container: 'photosphere',
+		// imagem (gif) que carrega a esfera
+		loadingimg: 'resources/img/troia_logo.png',
+		// barra que fica embaixo, é só retirar o false que voltara a aparecer
+		navbar: [
+			'autorotate', 'zoom', 'markers',
+			// comentar os pinos
+			'caption',
+			'gyroscope',
+			'fullscreen'
+		],
+		// texto que fica na barra de navegação, se disativar tem que retirar o txt, pq ele continua aparecendo msm sem a barra. É só tirar o false e colocar entre aspas a frase que desejar.
+		caption:false,
+		// Faixa de longitude visível. Exemplos:[0, Math.PI], [-3*Math.PI/4, 3*Math.PI/4].
+		// essa longitude é com um iframe de 510 de largura(minimo possivel)
+		longitude_range: Math.PI,
+		// Faixa de latitude visível.
+		latitude_range: Math.PI,
+		// velocidade de rotação automática em radianos / graus / rotações por segundo / minuto.
+		anim_speed: '-2rpm',
+		// campo de visão da esfera, entre o min(30) e max(90)
+		default_fov: 90,
+		// efeito olho de peixe, Ativar efeito olho de peixe com trueou especificar força efeito ( true== 1.0).  Este modo pode ter efeitos secundários sobre os marcadores de renderização.
+		fisheye: false,
+		// velocidade da esfera com o mouse
+		move_speed: 1.5,
+		// função para começar a esfera girando automaticamente, true = girar, false = nao girar
+		time_anim: false,
+		// giroscopio, para celular, padrao true
+		gyroscope: giro,
+		// web gl, padrao true
+		webgl: true,
+		// configurar a transição de uma esfera para outra.
+		transition: {
+			duration: 100,
+			loader: true,
+			blur: true
+		},
+		// aqui fica os pin's, marcadores, hotspot.
+		// OBS: ESSES PINOS AQUI, SE REFEREM A PRIMEIRA ESFERA, NO MOMENTO EM QUE ACONTECE O LOAD DA ESFERA(POR TANTO É O MESMO DA SALA).
+		//esse funciona
+		markers: (function(){
+		var a = [];
+			for (var i=0; i<Math.PI*2; i+=Math.PI/4) {
+				for (var j=-Math.PI/2+Math.PI/4; j<Math.PI/2; j+=Math.PI/4) {
+				}
+			}
+			//adiciono os pinos
+			a.push({
+				id: 'pc-banheiro',
+				latitude: -0.1,
+				longitude: 2.43,
+				image: 'resources/img/seta-dir.png',
+				width: 40,
+				height: 40,
+				anchor: 'bottom center',
+				onClick: (banheiro()),
+				tooltip: {
+					content: 'Banheiro',
+					position: 'bottom right'
+				}
+			});
+			a.push({
+				id: 'pc-quarto',
+				latitude: -0.1,
+				longitude: 2.64,
+				image: 'resources/img/seta-dir.png',
+				width: 40,
+				height: 40,
+				anchor: 'bottom center',
+				onClick: (quarto()),
+				tooltip: {
+					content: 'Quarto',
+					position: 'bottom right'
+				}
+			});
+			a.push({
+				id: 'pc-cozinha', // identificacao
+				latitude: -0.2, // lat
+				longitude: 2, // e long para a localizacao
+				image: 'resources/img/seta-cima.png', //imagem do pino
+				width: 40, // largura
+				height: 40, // e altura para tamanho do pino
+				anchor: 'bottom center', // ancora para qual parte da esfera ficara
+				onClick: (cozinha()), // ao clicar nesse pino fazer o que pedir (nesse caso ir para a esfera da cozinha)
+				tooltip: {
+					content: 'Cozinha',
+					position: 'bottom right'
+				} // posicao e titulo ao passar por cima do pino
+			});
+			a.push({
+				id: 'Pino_1',
+				latitude: 0,
+				longitude: 1.57,
+				image: 'resources/img/pinI.png',
+				width: 40,
+				height: 40,
+				anchor: 'bottom center',
+				tooltip: {
+					content: 'Localização deste Apartamento',
+					position: 'bottom right'
+				},
+				content: document.getElementById('mapeamento-1').innerHTML,
+				anchor: 'bottom center'
+			});
+			a.push({
+				id: 'Pino_2',
+				latitude: 0,
+				longitude: 0.20,
+				image: 'resources/img/pinF.png',
+				width: 40,
+				height: 40,
+				anchor: 'bottom center',
+				tooltip: {
+					content: 'Varanda',
+					position: 'bottom right'
+				},
+				content: document.getElementById('imagem-1').innerHTML,
+				anchor: 'bottom center'
+			});
+			a.push({
+				id: 'Pino_3',
+				latitude: 1,
+				longitude: 1.20,
+				image: 'resources/img/pinA.png',
+				width: 40,
+				height: 40,
+				anchor: 'bottom center',
+				tooltip: {
+					content: 'Teto com acabamento em __________',
+					position: 'bottom right'
+				},
+				content: document.getElementById('audio-1').innerHTML,
+				anchor: 'bottom center'
+			});
+			//fim pino
+			return a;
+			}()) // markers
+		}); // fim photosphere
+
+// ---------------------------------------------------------------- MODO VR -----------------------------------------------------------------------
+
+		function fmodovr(imagemvr) {
+
+		    document.getElementById('vr-button').parentNode.removeChild(document.getElementById('vr-button'));
+
+			var clickMeButton = document.createElement('div');
+			clickMeButton.id = 'vr-button';
+			document.getElementById('ui').appendChild(clickMeButton);
+
+			var scene = new THREE.Scene();
+			var camera = new THREE.PerspectiveCamera(75, window.innerWidth/ window.innerHeight, 1, 1100);
+			camera.target = new THREE.Vector3(0, 0, 0);
+			camera.lookAt(camera.target);
+			var geometry = new THREE.SphereGeometry(500, 60, 40);
+			var texture = new THREE.TextureLoader().load(imagemvr); // imagemvr recebe a imagem da esfera em q o user esta
+
+			var controls = new THREE.VRControls(camera);
+			controls.standing = true;
+			camera.position.y = controls.userHeight;
+
+			var material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
+			var mesh = new THREE.Mesh(geometry, material);
+			mesh.position.set(0, controls.userHeight, -1);
+			scene.add(mesh);
+			var renderer = new THREE.WebGLRenderer();
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.setSize(window.innerWidth, window.innerHeight);
+
+			var effect = new THREE.VREffect(renderer);
+			effect.setSize(window.innerWidth, window.innerHeight);
+			document.body.appendChild(renderer.domElement);
+
+			var options = {
+			  color: 'black',
+			  background: 'white',
+			  corners: 'square'
+			};
+
+			var enterVRButton = new webvrui.EnterVRButton(renderer.domElement, options);
+			enterVRButton.on('exit', function() {
+			  camera.quaternion.set(0, 0, 0, 1);
+			  camera.position.set(0, controls.userHeight, 0);
+			});
+
+			enterVRButton.on('hide', function() {
+			  document.getElementById('ui').style.display = 'none';
+			});
+			enterVRButton.on('show', function() {
+			  document.getElementById('ui').style.display = 'inherit';
+			});
+
+			document.getElementById('vr-button').appendChild(enterVRButton.domElement);
+
+			var interacting;
+			var pointerX = 0;
+			var pointerY = 0;
+			var lat = 0;
+			var lng = 0;
+			var savedLat = 0;
+			var savedLng = 0;
+
+			animate();
+
+			function animate() {
+			  effect.render(scene, camera);
+
+			  if (enterVRButton.isPresenting()) {
+			    controls.update();
+			  }
+
+			  requestAnimationFrame(animate);
+			}
+
+			renderer.domElement.addEventListener('mousedown', onMouseDown, false);
+			renderer.domElement.addEventListener('mousemove', onMouseMove, false);
+			renderer.domElement.addEventListener('mouseup', onMouseUp, false);
+			window.addEventListener('resize', onResize, false);
+
+			function onMouseDown(event) {
+			  event.preventDefault();
+			  interacting = true;
+			  pointerX = event.clientX;
+			  pointerY = event.clientY;
+			  savedLng = lng;
+			  savedLat = lat;
+			}
+
+			function onMouseMove(event) {
+			  if (interacting) {
+			    lng = ( pointerX - event.clientX ) * 0.1 + savedLng;
+			    lat = ( pointerY - event.clientY ) * 0.1 + savedLat;
+			  }
+			}
+
+			function onMouseUp(event) {
+			  event.preventDefault();
+			  interacting = false;
+			}
+
+			function onTouchDown(event) {
+			  event.preventDefault();
+			  interacting = true;
+			  pointerX = event.touches[0].clientX;
+			  pointerY = event.touches[0].clientY;
+			  savedLng = lng;
+			  savedLat = lat;
+			}
+
+			function onTouchMove(event) {
+			  if (interacting) {
+			    lng = ( pointerX - event.touches[0].clientX ) * 0.1 + savedLng;
+			    lat = ( pointerY - event.touches[0].clientY ) * 0.1 + savedLat;
+			  }
+			}
+
+			function onTouchEnd(event) {
+			  event.preventDefault();
+			  interacting = false;
+			}
+
+			function onResize() {
+			  effect.setSize(window.innerWidth, window.innerHeight);
+			  camera.aspect = window.innerWidth / window.innerHeight;
+			  camera.updateProjectionMatrix();
+			}
+		return false;
+		} // fim fmodovr
+
+	}); // fim document.ready
+</script>

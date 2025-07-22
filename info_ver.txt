@@ -1,0 +1,25 @@
+documentação e bibliografia
+
+primeira versão --
+	http://photo-sphere-viewer.js.org
+	http://jeremyheleine.me
+	https://github.com/JeremyHeleine/Photo-Sphere-Viewer
+
+segunda versão --
+	https://github.com/pchen66/panolens.js
+	http://pchen66.github.io/Panolens/examples/panorama_loading_progress.html
+	https://github.com/arscan/pleaserotate.js
+
+baseado em --
+THREE.JS https://threejs.org
+WEBGL
+JAVASCRIPT
+PHOTOSPHERA
+360
+Hostspot
+Tour Virtual
+VR (Virtual Reality/Realidade Virtual)
+Cardboard
+Click Hotspot eye IN VR Cardboard
+
+paginas do git, nao podem ter _ no inicio de suas pastas

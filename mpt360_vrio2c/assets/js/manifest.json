@@ -1,0 +1,21 @@
+{
+  "short_name": "MPT 360",
+  "name": "MPT 360",
+  "description": "My Personal Tour - 360°",
+  "icons": [
+    {
+      "src": "../img/favicon.png",
+      "type": "image/png",
+      "sizes": "152x152"
+    }
+  ],
+  "start_url": "../../index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#4B4B4D",
+  "background_color": "rgba(75,75,77, 1.0)",
+
+  "//": "Some browsers will use this to enable push notifications.",
+  "//": "It is the same for all projects, this is not your project's sender ID",
+  "gcm_sender_id": "103953800507"
+}

@@ -1,0 +1,257 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800,900");
+@import url("https://cdn.linearicons.com/free/1.0.0/icon-font.min.css");
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: #E7E8E9 !important;
+  overflow-x: hidden !important;
+}
+.weather-card {
+  margin: 0px auto;
+  height: 500px;
+  width: auto;
+  background: #fff;
+  box-shadow: 0 1px 38px rgba(0, 0, 0, 0.15), 0 5px 12px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+.weather-card .top {
+  position: relative;
+  height: 80%;
+  max-height: 400px;
+  width: 100%;
+  overflow: hidden;
+  background: url(../images/Card2.jpg) no-repeat;
+  background-size: cover;
+  background-position: center center;
+  text-align: center;
+}
+.weather-card .top .wrapper {
+  padding: 30px;
+  position: relative;
+  z-index: 1;
+}
+.weather-card .top .wrapper .mynav {
+  height: 20px;
+}
+.weather-card .top .wrapper .mynav .lnr {
+  color: #fff;
+  font-size: 20px;
+}
+.weather-card .top .wrapper .mynav .lnr-chevron-left {
+  display: inline-block;
+}
+.weather-card .top .wrapper .mynav .lnr-cog {
+  display: inline-block;
+}
+.weather-card .top .wrapper .heading {
+  margin-top: 20px;
+  font-size: 35px;
+  font-weight: 400;
+  color: #fff;
+}
+.weather-card .top .wrapper .location {
+  margin-top: 20px;
+  font-size: 21px;
+  font-weight: 400;
+  color: #ccc;
+}
+.weather-card .top .wrapper .temp {
+  margin-top: 20px;
+}
+.weather-card .top .wrapper .temp a {
+  text-decoration: none;
+  color: #fff;
+}
+.weather-card .top .wrapper .temp a .temp-type {
+  font-size: 85px;
+}
+.weather-card .top .wrapper .temp .temp-value {
+  display: inline-block;
+  font-size: xxx-large;
+  font-size: -webkit-xxx-large;
+  font-weight: 600;
+  color: #fff;
+}
+.weather-card .top .wrapper .temp .deg {
+  display: inline-block;
+  font-size: 35px;
+  font-weight: 600;
+  color: #fff;
+  vertical-align: top;
+  margin-top: 10px;
+}
+.weather-card .top:after {
+  content: "";
+  height: 100%;
+  width: 100%;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+.weather-card .bottom {
+  padding: 0 30px;
+  background: #fff;
+}
+.weather-card .bottom .wrapper .forecast {
+  overflow: hidden;
+  margin: 0;
+  font-size: 0;
+  padding: 0;
+  padding-top: 20px;
+  max-height: 155px;
+}
+.weather-card .bottom .wrapper .forecast a {
+  text-decoration: none;
+  color: #000;
+}
+.weather-card .bottom .wrapper .forecast .go-up {
+  text-align: center;
+  display: block;
+  font-size: initial;
+  margin-bottom: 10px;
+}
+.weather-card .bottom .wrapper .forecast li {
+  display: block;
+  font-size: initial;
+  text-align: center;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.25);
+  line-height: 1em;
+  margin-bottom: 30px;
+}
+.weather-card .bottom .wrapper .forecast li .date {
+  display: inline-block;
+}
+.weather-card .bottom .wrapper .forecast li .condition {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 25px;
+}
+.weather-card .bottom .wrapper .forecast li .condition .temp {
+  display: inline-block;
+  vertical-align: top;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  padding-top: 2px;
+}
+.weather-card .bottom .wrapper .forecast li .condition .temp .deg {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  margin-left: 3px;
+  vertical-align: top;
+}
+.weather-card .bottom .wrapper .forecast li .condition .temp .temp-type {
+  font-size: 20px;
+}
+.weather-card .bottom .wrapper .forecast li.active {
+  color: rgba(0, 0, 0, 0.8);
+}
+.weather-card.rain .top {
+  background: url(../images/Card.png) no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+.btn-effect
+{
+	filter: drop-shadow(0px 2px 4px var(--color-shadow));
+	transition: all 0.35s;
+	outline: 0;
+  cursor: pointer;
+}
+
+.btn-effect:hover, .btn-effect:focus,
+.btn-effect:hover > img, .btn-effect:focus > img
+{
+	transform: scale(1.35);
+	filter: none;
+	transition: all 0.35s;
+	outline: 0;
+	opacity: 1;
+	transition: ease-in-out 0.5s;
+}
+
+.card-effect a:hover
+{
+  text-decoration: none;
+}
+
+.card-effect
+{
+	filter: drop-shadow(0px 2px 4px var(--color-shadow));
+	transition: all 0.35s;
+	outline: 0;
+  cursor: pointer;
+}
+
+.card-effect:hover, .card-effect:focus,
+.card-effect:hover > img, .card-effect:focus > img
+{
+	transform: scale(1.09);
+	filter: none;
+	transition: all 0.35s;
+	outline: 0;
+	opacity: 1;
+	transition: ease-in-out 0.5s;
+}
+
+.logo-douglas
+{
+	display: inline-grid;
+	text-align: center;
+	color: #000 !important;
+  text-decoration: none !important
+}
+.logo-douglas > img
+{
+  margin: 0 auto !important;
+}
+
+footer
+{
+	display: flex !important;
+	justify-content: space-between;
+	width: 90%;
+	height: auto;
+	color: rgba(0,0,0, 0.8);
+  font-family: 'Dosis', sans-serif !important;
+	margin: 5em auto 0 auto;
+}
+
+footer > div > p
+{
+	text-align: center;
+	line-height: 3;
+}
+
+@media screen and (max-width: 900px)
+{
+	footer
+	{
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 765px)
+{
+  .weather-card
+  {
+    max-width: 300px;
+  }
+	footer
+	{
+		display: grid !important;
+		display: -ms-inline-grid !important;
+		display: -moz-inline-grid !important;
+		text-align: center;
+		width: fit-content;
+	}
+
+	footer > div
+	{
+		margin: 10px 0;
+	}
+}

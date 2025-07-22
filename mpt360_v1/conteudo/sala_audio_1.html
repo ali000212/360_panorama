@@ -1,0 +1,58 @@
+<!-- audio sobre o teto da sala -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link href="../_assets/_css/estilompt.css" rel="stylesheet" type="text/css">
+	<link href="../_assets/_css/audio_player.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="body_conteudo">
+
+<h1>Teto com acabamento</h1>
+
+<!-- player de audio do mpt -->
+<div class="audio green-audio-player" id="green-audio-player">
+	<div class="loading" id="loading">
+		<div class="spinner" id="spinner"></div>
+	</div> <!-- fim div loading -->
+	<div class="play-pause-btn" id="play-pause-btn" style="padding-left: 10px;">  
+	<svg xmlns="http://www.w3.org/2000/svg" width="10" height="16" viewBox="0 0 18 24">
+		<path fill="#566574" fill-rule="evenodd" d="M18 12L0 24V0" class="play-pause-icon playPause" id="playPause"/>
+	</svg> <!-- fim tag svg -->
+	</div> <!-- fim div play-pause-btn -->
+	<div class="controls" id="controls">
+		<span class="current-time" id="current-time">0:00</span>
+		<div class="slider" id="slider1" data-direction="horizontal">
+		<div class="progress" id="progress1">
+			<div class="pin" id="progress-pin" data-method="rewind"></div>
+		</div> <!-- fim div progress -->
+		</div> <!-- fim div slider -->
+		<span class="total-time" id="total-time">0:00</span>
+	</div> <!-- fim div controls -->
+	<div class="volume" id="volume">
+		<div class="volume-btn" id="volume-btn" style="padding-right:  10px;">
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+			<path fill="#566574" fill-rule="evenodd" d="M14.667 0v2.747c3.853 1.146 6.666 4.72 6.666 8.946 0 4.227-2.813 7.787-6.666 8.934v2.76C20 22.173 24 17.4 24 11.693 24 5.987 20 1.213 14.667 0zM18 11.693c0-2.36-1.333-4.386-3.333-5.373v10.707c2-.947 3.333-2.987 3.333-5.334zm-18-4v8h5.333L12 22.36V1.027L5.333 7.693H0z" class="speaker" id="speaker"></path>
+		</svg> <!-- fim tag svg -->
+		</div> <!-- fim div volume-btn -->
+		<div class="volume-controls hidden" id="volume-controls" style="bottom: 30px;left: -6px;">
+		<div class="slider" id="slider2" data-direction="vertical">
+		<div class="progress" id="progress2">
+			<div class="pin" id="volume-pin" data-method="changeVolume"></div>
+		</div> <!-- fim div progress -->
+		</div> <!-- fim div slider -->
+		</div> <!-- fim div volume-controls -->
+	</div> <!-- fim div volume -->
+	<audio crossorigin id="aud_orig">
+		<source src="../_assets/_img/seu_arquivo_de_audio.mp3" type="audio/mpeg">
+		<source src="../_assets/_img/seu_arquivo_de_audio.ogg" type="audio/mpeg">
+		<source src="../_assets/_img/seu_arquivo_de_audio.mp3" type="audio/mp3">
+		<source src="../_assets/_img/seu_arquivo_de_audio.ogg" type="audio/mp3"> <!-- ogg p/ firefox -->
+	</audio> <!-- fim tag audio -->
+</div> <!-- fim div audio green-audio-player -->
+<!-- fim player -->
+<p>O teto tem um acabamento em _____________, com iluminação (lampadas fluerescente, com baixo consumo de energia), e tudo o que for dito no audio vai estar aqui, lorens ipsolonis mussunsis lorens ipsolonis mussunsis lorens ipsolonis mussunsis lorens ipsolonis mussunsis lorens ipsolonis mussunsis lorens ipsolonis mussunsis lorens ipsolonis mussunsis.</p>
+
+<p>lorens ipsolonis mussunsis lorens ipsolonis mussunsis lorens ipsolonis mussunsis lorens ipsolonis mussunsis lorens ipsolonis mussunsis lorens ipsolonis mussunsis.</p>
+
+<script defer="defer" src="../_assets/_js/audio_player.min.js"></script>
